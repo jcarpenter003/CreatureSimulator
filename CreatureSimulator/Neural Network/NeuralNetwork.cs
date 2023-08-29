@@ -11,6 +11,24 @@ namespace CreatureSimulator.Network
         public void FeedForward()
         {
             // Take each Neuron in the input layer and feed it's value forward to the internal layer -> repeat with internal layer into output layer
+
+            foreach (Neuron neuron in InputLayer)
+            {
+                foreach (Neuron connection in neuron.Connections)
+                {
+                    connection.SensorValue += neuron.SensorValue;
+                }
+            }
+
+            foreach (Neuron neuron in InternalLayer)
+            {
+                foreach (Neuron connection in neuron.Connections)
+                {
+                    connection.SensorValue += neuron.SensorValue;
+                }
+            }
+
+            LogToConsole();
         }
 
         public void NeuralNetworkTestDriver(int inputNeurons, int internalNeurons, int outputNerons, int maxConnections) // Test function to aid development
@@ -20,7 +38,7 @@ namespace CreatureSimulator.Network
             // Create Input Neurons With Sensor Values
             for (int i = 0; i < inputNeurons; i++)
             {
-                var neuron = new Neuron($"Input Neuron {i}", NeuronTypeEnum.Input);
+                var neuron = new Neuron($"Input Neuron {i}", NeuronType.Input);
                 neuron.SensorValue = rand.NextDouble();
                 InputLayer.Add(neuron);
             }
@@ -28,7 +46,7 @@ namespace CreatureSimulator.Network
             // Create Internal Neurons
             for (int i = 0; i < internalNeurons; i++)
             {
-                var neuron = new Neuron($"Internal Neuron {i}", NeuronTypeEnum.Internal);
+                var neuron = new Neuron($"Internal Neuron {i}", NeuronType.Internal);
                 InternalLayer.Add(neuron);
             }
 
@@ -47,7 +65,7 @@ namespace CreatureSimulator.Network
             // Create Output Neurons
             for (int i = 0; i < outputNerons; i++)
             {
-                var neuron = new Neuron($"Output Neuron {i}", NeuronTypeEnum.Output);
+                var neuron = new Neuron($"Output Neuron {i}", NeuronType.Output);
                 OutputLayer.Add(neuron);
             }
 
@@ -58,19 +76,35 @@ namespace CreatureSimulator.Network
 
                 for (int j = 0; j < numOfConnections; j++)
                 {
-                    int selectedOutputNeuron = rand.Next(0, OutputLayer.Count - 1);
-                    InternalLayer[i].Connections.Add(InternalLayer[selectedOutputNeuron]);
+                    int selectedOutputNeuron = rand.Next(OutputLayer.Count);
+                    InternalLayer[i].Connections.Add(OutputLayer[selectedOutputNeuron]);
                 }
             }
 
             // Feed Layers Forward
             FeedForward();
+        }
 
-            // Log Results
+        #region Print layer information to console
+        public void LogToConsole()
+        {
             foreach (Neuron n in InputLayer)
             {
                 Console.WriteLine(n.ToString());
             }
+            Console.WriteLine("\n\n\n");
+
+            foreach (Neuron n in InternalLayer)
+            {
+                Console.WriteLine(n.ToString());
+            }
+            Console.WriteLine("\n\n\n");
+
+            foreach (Neuron n in OutputLayer)
+            {
+                Console.WriteLine(n.ToString());
+            }
         }
+        #endregion
     }
 }

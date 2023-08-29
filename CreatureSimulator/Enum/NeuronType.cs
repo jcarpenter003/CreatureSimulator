@@ -1,6 +1,6 @@
 ﻿namespace CreatureSimulator.Enum
 {
-    public enum NeuronTypeEnum
+    public enum NeuronType
     {
         Internal,
         Input,

@@ -8,12 +8,12 @@ namespace CreatureSimulator.Network
         #region Fields
         public string Name { get; set; } // For debug reasons
         public double SensorValue { get; set; } = 0.00; // Value between 0 and 1
-        public NeuronTypeEnum Type { get; set; }
+        public NeuronType Type { get; set; }
         public List<Neuron> Connections { get; set; } = new List<Neuron>();// TODO will need to contain weights towards connections
         #endregion
 
         #region Constructor
-        public Neuron(string name, NeuronTypeEnum type)
+        public Neuron(string name, NeuronType type)
         {
             Name = name;
             Type = type;
