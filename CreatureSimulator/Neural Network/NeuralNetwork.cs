@@ -1,4 +1,5 @@
-﻿using CreatureSimulator.Enum;
+﻿using CreatureSimulator.Creatures;
+using CreatureSimulator.Enum;
 
 namespace CreatureSimulator.Network
 {
@@ -7,10 +8,13 @@ namespace CreatureSimulator.Network
         private List<Neuron> InputLayer = new List<Neuron>();
         private List<Neuron> InternalLayer = new List<Neuron>();
         private List<Neuron> OutputLayer = new List<Neuron>();
+        private ActionHandler actionHandler = new ActionHandler();
+
 
         public void FeedForward()
         {
             // Take each Neuron in the input layer and feed it's value forward to the internal layer -> repeat with internal layer into output layer
+            // TODO apply scaling function to normalize values between 0-1
 
             foreach (Neuron neuron in InputLayer)
             {
@@ -66,6 +70,11 @@ namespace CreatureSimulator.Network
             for (int i = 0; i < outputNerons; i++)
             {
                 var neuron = new Neuron($"Output Neuron {i}", NeuronType.Output);
+
+                // Randomly assign an action to output layer neurons
+                int selectedAction = rand.Next(0, 3);
+                neuron.Action = (CreatureAction) selectedAction; 
+
                 OutputLayer.Add(neuron);
             }
 
