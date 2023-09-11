@@ -31,7 +31,7 @@ namespace CreatureSimulator.Creatures
             Debug.Assert(factor <= 1);
 
             var rand = new Random();
-            return (rand.Next(1,11) / 10) < factor; // Allegedly this will produce a random number between 1 and 10, then divide by 10. So 10 becomes 1, 9 becomes 0.9 and so on. If this value is less than the incoming factor we return true.
+            return ((rand.NextDouble() * (10 - 1) + 1) / 10) < factor;
         }
     }
 }
