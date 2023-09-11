@@ -8,7 +8,7 @@ namespace CreatureSimulator.Network
         private List<Neuron> InputLayer = new List<Neuron>();
         private List<Neuron> InternalLayer = new List<Neuron>();
         private List<Neuron> OutputLayer = new List<Neuron>();
-        private ActionHandler actionHandler = new ActionHandler();
+        private ActionHandler ActionHandler = new ActionHandler();
 
 
         public void FeedForward()
@@ -32,7 +32,24 @@ namespace CreatureSimulator.Network
                 }
             }
 
-            LogToConsole();
+            ActionHandler.ExecuteActions(MapNeuronsToActions(OutputLayer), new Creature(this)); // TODO for now we're passing a new creature into the action handler. Action handler won't be called here in final version of project
+
+            //LogToConsole();
+        }
+
+        public IDictionary<CreatureAction, double> MapNeuronsToActions(List<Neuron> outputNeurons)
+        {
+            var actions = new Dictionary<CreatureAction, double>();
+
+            foreach (var neuron in outputNeurons)
+            {
+                if (neuron.Action != CreatureAction.NONE)
+                {
+                    actions.Add(neuron.Action, neuron.SensorValue);
+                }
+            }
+
+            return actions;
         }
 
         public void NeuralNetworkTestDriver(int inputNeurons, int internalNeurons, int outputNerons, int maxConnections) // Test function to aid development

@@ -9,7 +9,7 @@ namespace CreatureSimulator.Network
         public string Name { get; set; } // For debug reasons
         public double SensorValue { get; set; } = 0.00; // Value between 0 and 1
         public NeuronType Type { get; set; }
-        public CreatureAction Action { get; set; }
+        public CreatureAction Action { get; set; } = CreatureAction.NONE; // DEFAULTS TO NONE
         public List<Neuron> Connections { get; set; } = new List<Neuron>();// TODO will need to contain weights towards connections
         #endregion
 
