@@ -11,6 +11,7 @@ namespace CreatureSimulator.Simulator
         public SimulatorWindow()
         {
             InitializeComponent();
+            this.CenterToScreen();
             this.FormClosing += new FormClosingEventHandler(SimulatorWindow_FormClosing);
         }
 
