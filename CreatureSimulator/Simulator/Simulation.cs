@@ -8,21 +8,14 @@ namespace CreatureSimulator.Simulator
     {
         public void Run()
         {
-            NeuralNetwork network = new NeuralNetwork();
-            network.NeuralNetworkTestDriver(10, 3, 3, 3);
+            //NeuralNetwork network = new NeuralNetwork();
+            //network.NeuralNetworkTestDriver(10, 3, 3, 3);
 
-            ActionHandler actionHandler = new ActionHandler();
+           
+            SimulatorWindow window = new SimulatorWindow();
+            window.Show();
 
-            //double input = 8;
-            //double input2 = 124;
-            //double input3 = 1;
-
-            //Console.WriteLine(Math.Tanh(input) * 0.5 + 0.5);
-            //Console.WriteLine(Math.Tanh(input2) * 0.5 + 0.5);
-            //Console.WriteLine(Math.Tanh(input3) * 0.5 + 0.5);
-
-
-            Console.ReadLine();
+            Application.Run();
         }
     }
 }
