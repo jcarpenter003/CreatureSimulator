@@ -25,7 +25,7 @@
             panel.BorderStyle = BorderStyle.Fixed3D;
             panel.Location = new Point(0, 0);
             panel.Name = "panel";
-            panel.Size = new Size(1000, 1000);
+            panel.Size = new Size(1010, 1010);
             panel.TabIndex = 0;
             panel.Paint += PaintGrid;
             // 
@@ -44,7 +44,7 @@
 
             using (Graphics g = e.Graphics)
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i <= 10; i++)
                 {
                     // Draws Columns
                     var point1 = new Point(i * 100, 0);
