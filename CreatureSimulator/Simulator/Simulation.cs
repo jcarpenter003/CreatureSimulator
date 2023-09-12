@@ -1,11 +1,9 @@
-﻿using CreatureSimulator.Creatures;
-using CreatureSimulator.Network;
-using System;
-
-namespace CreatureSimulator.Simulator
+﻿namespace CreatureSimulator.Simulator
 {
     public class Simulation
     {
+        private int[,] simulationGrid = new int[10, 10];
+
         public void Run()
         {
             //NeuralNetwork network = new NeuralNetwork();

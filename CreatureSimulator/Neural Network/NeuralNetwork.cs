@@ -115,7 +115,7 @@ namespace CreatureSimulator.Network
             }
 
             // Feed Layers Forward
-            FeedForward();
+            //FeedForward();
         }
 
         #region Print layer information to console
