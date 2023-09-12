@@ -17,9 +17,17 @@ namespace CreatureSimulator.Creatures
         {
             foreach (KeyValuePair<CreatureAction, double> action in actions)
             {
+                Console.WriteLine(action.Key.ToString() + " " + action.Value); // Logging the raw values
+
                 // First normalize the signal value to a value of between 0 and 1
+                double normalizedValue = Math.Round((Math.Tanh(action.Value) * 0.5 + 0.5), 2);
+                Console.WriteLine(action.Key.ToString() + " -- NormalizedValue:" + normalizedValue);
 
                 // Then pass the normalized signal value into a function which determines probability of the action executing based off of the value and returns true or false if execute or not
+                bool executeAction = ProbabilisticTrue(normalizedValue);
+                Console.WriteLine("Action Will Be Executed? " + executeAction);
+
+                Console.WriteLine("------------ \n");
 
                 // Finally Execute the action
             }
@@ -29,7 +37,7 @@ namespace CreatureSimulator.Creatures
         {
             Debug.Assert(factor <= 1);
 
-            var rand = new Random();
+            var rand = new Random(); // TODO move this to a location where it's only initialized once, or once per thread
             var randNum = (rand.NextDouble() * (10 - 1) + 1) / 10;
             var rounded = Math.Round(randNum, 2);
 

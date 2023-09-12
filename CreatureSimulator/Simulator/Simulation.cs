@@ -9,7 +9,7 @@ namespace CreatureSimulator.Simulator
         public void Run()
         {
             NeuralNetwork network = new NeuralNetwork();
-            network.NeuralNetworkTestDriver(5, 3, 3, 3);
+            network.NeuralNetworkTestDriver(10, 3, 3, 3);
 
             ActionHandler actionHandler = new ActionHandler();
 
