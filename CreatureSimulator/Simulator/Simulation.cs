@@ -1,4 +1,5 @@
-﻿using CreatureSimulator.Network;
+﻿using CreatureSimulator.Creatures;
+using CreatureSimulator.Network;
 using System;
 
 namespace CreatureSimulator.Simulator
@@ -9,6 +10,8 @@ namespace CreatureSimulator.Simulator
         {
             NeuralNetwork network = new NeuralNetwork();
             network.NeuralNetworkTestDriver(5, 3, 3, 3);
+
+            ActionHandler actionHandler = new ActionHandler();
 
             //double input = 8;
             //double input2 = 124;

@@ -45,7 +45,14 @@ namespace CreatureSimulator.Network
             {
                 if (neuron.Action != CreatureAction.NONE)
                 {
-                    actions.Add(neuron.Action, neuron.SensorValue);
+                    if(actions.ContainsKey(neuron.Action))
+                    {
+                        actions[neuron.Action] += neuron.SensorValue;
+                    }
+                    else
+                    {
+                        actions.Add(neuron.Action, neuron.SensorValue);
+                    }
                 }
             }
 

@@ -25,13 +25,17 @@ namespace CreatureSimulator.Creatures
             }
         }
 
-        // TODO Test this function
         public bool ProbabilisticTrue(double factor) // Factor must be between 0 and 1
         {
             Debug.Assert(factor <= 1);
 
             var rand = new Random();
-            return ((rand.NextDouble() * (10 - 1) + 1) / 10) < factor;
+            var randNum = (rand.NextDouble() * (10 - 1) + 1) / 10;
+            var rounded = Math.Round(randNum, 2);
+
+            //Console.WriteLine($"Factor: {factor} - - - Rand Num: {rounded}"); // Log Statement
+
+            return rounded < factor;
         }
     }
 }
