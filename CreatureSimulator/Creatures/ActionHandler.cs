@@ -74,6 +74,10 @@ namespace CreatureSimulator.Creatures
             double finalMoveX = creature.speed * moveX;
             double finalMoveY = creature.speed * moveY;
 
+            // ^^^^^ TODO NEED SOME WAY TO MAKE SURE CREATURE DON'T GO OFF THE MAP HERE
+            // ^^^^ TODO NEED TO MAKE SURE CREATURES DON'T COLLIDE WITH EACHOTHER
+            // TODO give creatures some initiative score to determine the order in which they move
+
             // Convert.ToInt32() should round the double value to nearest integer
             creature.creatureXLocation += Convert.ToInt32((finalMoveX));
             creature.creatureYLocation += Convert.ToInt32((finalMoveY));

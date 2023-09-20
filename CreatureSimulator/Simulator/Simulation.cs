@@ -15,7 +15,7 @@ namespace CreatureSimulator.Simulator
             var creatures = new List<Creature>();
 
             // Initial Paint of creatures on map
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 NeuralNetwork network = new NeuralNetwork();
                 network.InitRandomNeuralNetwork(3, 4, 5, 5);
@@ -26,9 +26,12 @@ namespace CreatureSimulator.Simulator
                 window.PaintCreature(creature);
             }
 
-            // Movement Loop
+            //Application.Run(window);
+
+            //Movement Loop
             while (true)
             {
+                window.ClearPanel();
                 foreach (Creature creature in creatures)
                 {
                     creature.NeuralNetwork.FeedForward(); // Feed that shizz
@@ -36,7 +39,7 @@ namespace CreatureSimulator.Simulator
                     window.PaintCreature(creature);
                 }
 
-                Thread.Sleep(500);
+                Thread.Sleep(500); // This adjusts the speed of the simulation
             }
         }
     }
