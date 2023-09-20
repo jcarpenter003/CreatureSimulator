@@ -25,12 +25,17 @@ namespace CreatureSimulator.Creatures
             NeuralNetwork = neuralNetwork;
         }
 
+        public Creature()
+        {
+            InitializeRandomCreature(new NeuralNetwork());
+        }
+
         // Shortcut Function to initialize a creature with random attributes
-        public Creature InitializeRandomCreature(NeuralNetwork neuralNetwork)
+        public Creature InitializeRandomCreature(NeuralNetwork network)
         {
             Random rand = new Random();
 
-            this.NeuralNetwork = neuralNetwork;
+            this.NeuralNetwork = network;
             this.Age = rand.Next(1, 100);
 
             var genderSeed = rand.Next(0, 2);

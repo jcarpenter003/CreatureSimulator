@@ -1,4 +1,6 @@
-﻿namespace CreatureSimulator.Simulator
+﻿using CreatureSimulator.Creatures;
+
+namespace CreatureSimulator.Simulator
 {
     public partial class SimulatorWindow : Form
     {
@@ -56,6 +58,15 @@
                     var rowPoint2 = new Point(1000, i * 100);
                     g.DrawLine(pen, rowPoint1, rowPoint2);
                 }
+            }
+        }
+
+        public void PaintCreature(Creature creature)
+        {
+            using(Graphics g = panel.CreateGraphics())
+            {
+                var creaturePen = new Pen(Color.Orange, 1);
+                GraphicsExtensions.DrawAndFillCircle(g, creaturePen, creature.creatureXLocation, creature.creatureYLocation, 15);
             }
         }
 

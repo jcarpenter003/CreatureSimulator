@@ -1,4 +1,6 @@
-﻿namespace CreatureSimulator.Simulator
+﻿using CreatureSimulator.Creatures;
+
+namespace CreatureSimulator.Simulator
 {
     public class Simulation
     {
@@ -12,6 +14,9 @@
            
             SimulatorWindow window = new SimulatorWindow();
             window.Show();
+
+            Creature creature = new Creature();
+            window.PaintCreature(creature);
 
             Application.Run();
         }
