@@ -4,6 +4,8 @@ namespace CreatureSimulator.Creatures
 {
     public class Creature
     {
+        private ActionHandler actionHandler;
+
         // Personal Information
         public int Age { get; set; }
         public bool Gender { get; set; } = false; // True for male, false for female
@@ -18,16 +20,15 @@ namespace CreatureSimulator.Creatures
         public int creatureYLocation { get; set; }
 
         // Speed of N cells per simulation cycle
-        public int speed = 1; 
+        public int speed = 20;
 
         public Creature(NeuralNetwork neuralNetwork)
         {
             NeuralNetwork = neuralNetwork;
-        }
+            actionHandler = new ActionHandler();
 
-        public Creature()
-        {
-            InitializeRandomCreature(new NeuralNetwork());
+            // TODO FOR NOW INITIALIZING RANDOM VALUES - IN FUTURE HAVE PRESETS N SUCH
+            InitializeRandomCreature(neuralNetwork);
         }
 
         // Shortcut Function to initialize a creature with random attributes
@@ -39,7 +40,7 @@ namespace CreatureSimulator.Creatures
             this.Age = rand.Next(1, 100);
 
             var genderSeed = rand.Next(0, 2);
-            if(genderSeed == 0)
+            if (genderSeed == 0)
             {
                 this.Gender = true;
             }
@@ -53,5 +54,12 @@ namespace CreatureSimulator.Creatures
 
             return this;
         }
+
+        #region Function to Execute Actions
+        public void ExecuteActions()
+        {
+            actionHandler.ExecuteActions(NeuralNetwork.MapNeuronsToActions(), this);
+        }
+        #endregion
     }
 }

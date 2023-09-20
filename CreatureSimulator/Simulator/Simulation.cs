@@ -1,4 +1,5 @@
 ﻿using CreatureSimulator.Creatures;
+using CreatureSimulator.Network;
 
 namespace CreatureSimulator.Simulator
 {
@@ -8,17 +9,35 @@ namespace CreatureSimulator.Simulator
 
         public void Run()
         {
-            //NeuralNetwork network = new NeuralNetwork();
-            //network.NeuralNetworkTestDriver(10, 3, 3, 3);
-
-           
             SimulatorWindow window = new SimulatorWindow();
             window.Show();
 
-            Creature creature = new Creature();
-            window.PaintCreature(creature);
+            var creatures = new List<Creature>();
 
-            Application.Run();
+            // Initial Paint of creatures on map
+            for (int i = 0; i < 5; i++)
+            {
+                NeuralNetwork network = new NeuralNetwork();
+                network.InitRandomNeuralNetwork(3, 4, 5, 5);
+
+                var creature = new Creature(network);
+
+                creatures.Add(creature);
+                window.PaintCreature(creature);
+            }
+
+            // Movement Loop
+            while (true)
+            {
+                foreach (Creature creature in creatures)
+                {
+                    creature.NeuralNetwork.FeedForward(); // Feed that shizz
+                    creature.ExecuteActions(); // Execute that shizznips
+                    window.PaintCreature(creature);
+                }
+
+                Thread.Sleep(500);
+            }
         }
     }
 }

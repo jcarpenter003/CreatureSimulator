@@ -32,20 +32,22 @@ namespace CreatureSimulator.Network
                 }
             }
 
-            ActionHandler.ExecuteActions(MapNeuronsToActions(OutputLayer), new Creature(this)); // TODO for now we're passing a new creature into the action handler. Action handler won't be called here in final version of project
+            //ActionHandler.ExecuteActions(MapNeuronsToActions(OutputLayer), new Creature(this)); // TODO for now we're passing a new creature into the action handler. Action handler won't be called here in final version of project
 
             //LogToConsole();
         }
 
-        public IDictionary<CreatureAction, double> MapNeuronsToActions(List<Neuron> outputNeurons)
+
+        // Method to return list of actions for the creatures neural network along with a value representing how driven the action is
+        public IDictionary<CreatureAction, double> MapNeuronsToActions()
         {
             var actions = new Dictionary<CreatureAction, double>();
 
-            foreach (var neuron in outputNeurons)
+            foreach (var neuron in OutputLayer)
             {
                 if (neuron.Action != CreatureAction.NONE)
                 {
-                    if(actions.ContainsKey(neuron.Action))
+                    if (actions.ContainsKey(neuron.Action))
                     {
                         actions[neuron.Action] += neuron.SensorValue;
                     }
@@ -59,7 +61,9 @@ namespace CreatureSimulator.Network
             return actions;
         }
 
-        public void NeuralNetworkTestDriver(int inputNeurons, int internalNeurons, int outputNerons, int maxConnections) // Test function to aid development
+        // Init Neural Network with randomly assigned connections
+        // TODO RIGHT NOW THIS METHOD GENERATES RANDOM SENSOR VALUES AS WELL
+        public NeuralNetwork InitRandomNeuralNetwork(int inputNeurons, int internalNeurons, int outputNerons, int maxConnections) 
         {
             var rand = new Random();
 
@@ -97,7 +101,7 @@ namespace CreatureSimulator.Network
 
                 // Randomly assign an action to output layer neurons
                 int selectedAction = rand.Next(0, 3);
-                neuron.Action = (CreatureAction) selectedAction; 
+                neuron.Action = (CreatureAction)selectedAction;
 
                 OutputLayer.Add(neuron);
             }
@@ -114,8 +118,7 @@ namespace CreatureSimulator.Network
                 }
             }
 
-            // Feed Layers Forward
-            //FeedForward();
+            return this;
         }
 
         #region Print layer information to console

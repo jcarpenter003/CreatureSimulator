@@ -1,4 +1,5 @@
 ﻿using CreatureSimulator.Enum;
+using CreatureSimulator.Network;
 using System.Diagnostics;
 
 namespace CreatureSimulator.Creatures
@@ -15,27 +16,72 @@ namespace CreatureSimulator.Creatures
          e`y */
         public void ExecuteActions(IDictionary<CreatureAction, double> actions, Creature creature)
         {
+            var actionsToExecute = new Dictionary<CreatureAction, double>();
+
             foreach (KeyValuePair<CreatureAction, double> action in actions)
             {
                 Console.WriteLine(action.Key.ToString() + " " + action.Value); // Logging the raw values
 
                 // First normalize the signal value to a value of between 0 and 1
                 double normalizedValue = Math.Round((Math.Tanh(action.Value) * 0.5 + 0.5), 2);
-                Console.WriteLine(action.Key.ToString() + " -- NormalizedValue:" + normalizedValue);
 
                 // Then pass the normalized signal value into a function which determines probability of the action executing based off of the value and returns true or false if execute or not
                 bool executeAction = ProbabilisticTrue(normalizedValue);
-                Console.WriteLine("Action Will Be Executed? " + executeAction);
 
-                Console.WriteLine("------------ \n");
+                if (executeAction)
+                {
+                    actionsToExecute[action.Key] = normalizedValue;
+                }
+            }
 
-                // Finally Execute the action
+            ExecuteMovementAction(creature, actionsToExecute);
+        }
+
+        public void ExecuteMovementAction(List<Creature> creatures)
+        {
+            foreach (Creature creature in creatures)
+            {
+                //ExecuteMovementAction(creature);
             }
         }
 
-        public bool ProbabilisticTrue(double factor) // Factor must be between 0 and 1
+        public void ExecuteMovementAction(Creature creature, Dictionary<CreatureAction, double> actions)
         {
-            Debug.Assert(factor <= 1);
+            // Combine them somehow?
+            double moveX = 0;
+            double moveY = 0;
+
+            foreach (KeyValuePair<CreatureAction, double> action in actions)
+            {
+                switch (action.Key)
+                {
+                    case CreatureAction.MOVE_FORWARD:
+                        moveY += action.Value;
+                        break;
+                    case CreatureAction.MOVE_BACKWARD:
+                        moveY -= action.Value;
+                        break;
+                    case CreatureAction.MOVE_LEFT:
+                        moveX -= action.Value;
+                        break;
+                    case CreatureAction.MOVE_RIGHT:
+                        moveX += action.Value;
+                        break;
+                }
+            }
+
+            // Update the X, Y values of the creature DONT FORGET creature.speed
+            double finalMoveX = creature.speed * moveX;
+            double finalMoveY = creature.speed * moveY;
+
+            // Convert.ToInt32() should round the double value to nearest integer
+            creature.creatureXLocation += Convert.ToInt32((finalMoveX));
+            creature.creatureYLocation += Convert.ToInt32((finalMoveY));
+        }
+
+        private bool ProbabilisticTrue(double factor)
+        {
+            Debug.Assert(factor <= 1); // Factor must be between 0 and 1
 
             var rand = new Random(); // TODO move this to a location where it's only initialized once, or once per thread
             var randNum = (rand.NextDouble() * (10 - 1) + 1) / 10;
