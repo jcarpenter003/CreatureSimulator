@@ -38,7 +38,7 @@ namespace CreatureSimulator.Network
         }
 
 
-        // Method to return list of actions for the creatures neural network along with a value representing how driven the action is
+        // Method to return list of actions for the creatures neural network along with a value representing how driven the action is.
         public IDictionary<CreatureAction, double> MapNeuronsToActions()
         {
             var actions = new Dictionary<CreatureAction, double>();

@@ -1,4 +1,5 @@
-﻿using CreatureSimulator.Enum;
+﻿using CreatureSimulator.Config;
+using CreatureSimulator.Enum;
 using CreatureSimulator.Network;
 using System.Diagnostics;
 
@@ -47,7 +48,6 @@ namespace CreatureSimulator.Creatures
 
         public void ExecuteMovementAction(Creature creature, Dictionary<CreatureAction, double> actions)
         {
-            // Combine them somehow?
             double moveX = 0;
             double moveY = 0;
 
@@ -70,17 +70,18 @@ namespace CreatureSimulator.Creatures
                 }
             }
 
-            // Update the X, Y values of the creature DONT FORGET creature.speed
-            double finalMoveX = creature.speed * moveX;
-            double finalMoveY = creature.speed * moveY;
+            // Update the X, Y values of the creature - Speed represents a modifer of per simulation cycle movement 
+            var finalMoveX = Convert.ToInt32(creature.speed * moveX);
+            var finalMoveY = Convert.ToInt32(creature.speed * moveY);
 
-            // ^^^^^ TODO NEED SOME WAY TO MAKE SURE CREATURE DON'T GO OFF THE MAP HERE
             // ^^^^ TODO NEED TO MAKE SURE CREATURES DON'T COLLIDE WITH EACHOTHER
             // TODO give creatures some initiative score to determine the order in which they move
 
-            // Convert.ToInt32() should round the double value to nearest integer
-            creature.creatureXLocation += Convert.ToInt32((finalMoveX));
-            creature.creatureYLocation += Convert.ToInt32((finalMoveY));
+            if (!CheckForCollisionWithMap(creature.creatureXLocation + finalMoveX, creature.creatureYLocation + finalMoveY))
+            {
+                creature.creatureXLocation += finalMoveX;
+                creature.creatureYLocation += finalMoveY;
+            }
         }
 
         private bool ProbabilisticTrue(double factor)
@@ -95,5 +96,19 @@ namespace CreatureSimulator.Creatures
 
             return rounded < factor;
         }
+
+        #region Check if a given X,Y coordinate collides with edge of map
+        private bool CheckForCollisionWithMap(int x, int y)
+        {
+            // Map is 1010x1010 
+            var mapX = GloabalConfig.MapSizeX * GloabalConfig.MapSizeScaler;
+            var mapy = GloabalConfig.MapSizeY * GloabalConfig.MapSizeScaler;
+
+            if (x >= mapX || x <= 0) return true;
+            if (y >= mapy || y <= 0) return true;
+
+            return false;
+        }
+        #endregion
     }
 }
