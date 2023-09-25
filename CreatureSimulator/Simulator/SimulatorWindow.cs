@@ -116,7 +116,8 @@ namespace CreatureSimulator.Simulator
 
         public bool IsPointSafe(int x, int y)
         {
-            return true;
+            Rectangle rect = new Rectangle(0, 0, 200, 1000);
+            return !rect.Contains(x, y);
         }
 
         #region Function to kill main thread when form closed

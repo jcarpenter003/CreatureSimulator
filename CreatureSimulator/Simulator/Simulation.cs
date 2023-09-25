@@ -47,7 +47,9 @@ namespace CreatureSimulator.Simulator
             //Movement Loop
             while (true)
             {
-                for (int i = 0; i < generationLength; i++)
+                List<Creature> deadCreatures = new List<Creature>();
+
+                for (int i = 0; i < generationLength; i++) // Each Loop Here Is One Generation
                 {
                     _window.ClearPanel();
                     foreach (Creature creature in _creatures)
@@ -55,21 +57,27 @@ namespace CreatureSimulator.Simulator
                         creature.NeuralNetwork.FeedForward(); // Feed that shizz
                         creature.ExecuteActions(); // Execute that shizznips
                         _window.PaintCreature(creature);
+
+                        if (i == generationLength - 1)
+                        {
+                            if (_window.IsPointSafe(creature.creatureXLocation, creature.creatureYLocation))
+                            {
+                                deadCreatures.Add(creature);
+                            }
+                        }
                     }
 
                     Thread.Sleep(GlobalConfig.SimCycleDelay); // This adjusts the speed of the simulation
                 }
 
+                RemoveDeadCreatures(deadCreatures);
             }
         }
 
-        #region Survival Criteria Function
-        public void CheckSurvival(Creature creature)
+        #region Remove Dead Creatures From List Of Creatures
+        public void RemoveDeadCreatures(List<Creature> deadCreatures)
         {
-            int creatureX = creature.creatureXLocation;
-            int creatureY = creature.creatureYLocation;
-
-            if(!_window.IsPointSafe(creatureX, creatureY))
+            foreach(Creature creature in deadCreatures)
             {
                 _creatures.Remove(creature);
             }
