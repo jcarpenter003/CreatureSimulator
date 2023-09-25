@@ -1,4 +1,5 @@
-﻿using CreatureSimulator.Creatures;
+﻿using CreatureSimulator.Config;
+using CreatureSimulator.Creatures;
 using System.Drawing;
 
 namespace CreatureSimulator.Simulator
@@ -98,15 +99,17 @@ namespace CreatureSimulator.Simulator
             {
 
                 var creaturePen = new Pen(Color.Orange, 1);
-                GraphicsExtensions.DrawAndFillCircle(g, creaturePen, creature.creatureXLocation, creature.creatureYLocation, 15);
-                //PaintGrid(g);
+                GraphicsExtensions.DrawAndFillCircle(g, creaturePen, creature.creatureXLocation, creature.creatureYLocation, GlobalConfig.CreatureRadiusSize);
             }
         }
 
         #region Function To Paint Safe Area On Screen
-        public void PaintSafeArea()
+        public void PaintSafeArea(float x, float y, int height, int width)
         {
-
+            using (Graphics g = panel.CreateGraphics())
+            {
+                GraphicsExtensions.FillRectangle(g, x, y, height, width);
+            }
         }
         #endregion
 

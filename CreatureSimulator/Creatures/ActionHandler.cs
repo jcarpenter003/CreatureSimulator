@@ -101,8 +101,8 @@ namespace CreatureSimulator.Creatures
         private bool CheckForCollisionWithMap(int x, int y)
         {
             // Map is 1010x1010 
-            var mapX = GloabalConfig.MapSizeX * GloabalConfig.MapSizeScaler;
-            var mapy = GloabalConfig.MapSizeY * GloabalConfig.MapSizeScaler;
+            var mapX = GlobalConfig.MapSizeX * GlobalConfig.MapSizeScaler;
+            var mapy = GlobalConfig.MapSizeY * GlobalConfig.MapSizeScaler;
 
             if (x >= mapX || x <= 0) return true;
             if (y >= mapy || y <= 0) return true;
