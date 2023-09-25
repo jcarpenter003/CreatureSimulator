@@ -18,5 +18,11 @@
 
         // These configs represent controls for creature characteristics
         public static int CreatureRadiusSize { get; set; } = 15;
+
+        #region General Simulation Settings
+        public static int GenerationLength { get; set; } = 10;
+        public static int SimCycleDelay { get; set; } = 500; // Controls speed of simulation - value is milliseconds
+        public static int MaxCreatures { get; set; } = 10; // Maximum creatures on map
+        #endregion
     }
 }

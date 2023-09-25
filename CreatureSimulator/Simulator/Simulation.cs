@@ -8,6 +8,7 @@ namespace CreatureSimulator.Simulator
     public class Simulation
     {
         private int[,] simulationGrid = new int[GlobalConfig.MapSizeX, GlobalConfig.MapSizeY];
+        private int generationLength = GlobalConfig.GenerationLength;
         private readonly SimulatorWindow _window;
         private List<Creature> _creatures;
 
@@ -24,19 +25,17 @@ namespace CreatureSimulator.Simulator
             _window.Show();
 
             // Initial Paint of creatures on map
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < GlobalConfig.MaxCreatures; i++)
             {
                 NeuralNetwork network = new NeuralNetwork();
                 network.InitRandomNeuralNetwork(3, 4, 5, 5);
 
                 var creature = new Creature(network);
-
                 _creatures.Add(creature);
                 _window.PaintCreature(creature);
             }
 
-
-            Thread movementThread = new Thread( () => { RunMovement(); });
+            Thread movementThread = new Thread(RunMovement);
             movementThread.IsBackground = true;
             movementThread.Start();
 
@@ -48,15 +47,21 @@ namespace CreatureSimulator.Simulator
             //Movement Loop
             while (true)
             {
-                _window.ClearPanel();
-                foreach (Creature creature in _creatures)
+
+
+                for (int i = 0; i < generationLength; i++)
                 {
-                    creature.NeuralNetwork.FeedForward(); // Feed that shizz
-                    creature.ExecuteActions(); // Execute that shizznips
-                    _window.PaintCreature(creature);
+                    _window.ClearPanel();
+                    foreach (Creature creature in _creatures)
+                    {
+                        creature.NeuralNetwork.FeedForward(); // Feed that shizz
+                        creature.ExecuteActions(); // Execute that shizznips
+                        _window.PaintCreature(creature);
+                    }
+
+                    Thread.Sleep(GlobalConfig.SimCycleDelay); // This adjusts the speed of the simulation
                 }
 
-                Thread.Sleep(500); // This adjusts the speed of the simulation
             }
         }
     }
