@@ -92,7 +92,6 @@ namespace CreatureSimulator.Simulator
             }
         }
 
-
         public void PaintCreature(Creature creature)
         {
             using (Graphics g = panel.CreateGraphics())
@@ -104,9 +103,18 @@ namespace CreatureSimulator.Simulator
             }
         }
 
+        #region Function To Paint Safe Area On Screen
+        public void PaintSafeArea()
+        {
+
+        }
+        #endregion
+
+        #region Function to kill main thread when form closed
         private void SimulatorWindow_FormClosing(Object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
+        #endregion
     }
 }

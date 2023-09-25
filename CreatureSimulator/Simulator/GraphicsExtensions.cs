@@ -15,11 +15,17 @@
                       radius, radius);
         }
 
-        public static void FillCircle(this Graphics g, Brush brush,
+        public static void FillCircle(Graphics g, Brush brush,
                                   float centerX, float centerY, float radius)
         {
             g.FillEllipse(brush, centerX, centerY,
                           radius, radius);
+        }
+
+        public static void FillRectangle(Graphics g, float x, float y, int height, int width)
+        {
+            Brush brush = new SolidBrush(Color.FromArgb(102, 41, 226, 100)); // 40% opacity green color
+            g.FillRectangle(brush, x, y, width, height);
         }
     }
 }
