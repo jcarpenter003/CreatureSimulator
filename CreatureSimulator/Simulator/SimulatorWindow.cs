@@ -89,6 +89,7 @@ namespace CreatureSimulator.Simulator
             using (Graphics g = panel.CreateGraphics())
             {
                 g.Clear(Color.White);
+                this.PaintSafeArea(0, 0, 1000, 200);
                 //PaintGrid(g);
             }
         }
@@ -112,6 +113,11 @@ namespace CreatureSimulator.Simulator
             }
         }
         #endregion
+
+        public bool IsPointSafe(int x, int y)
+        {
+            return true;
+        }
 
         #region Function to kill main thread when form closed
         private void SimulatorWindow_FormClosing(Object sender, FormClosingEventArgs e)

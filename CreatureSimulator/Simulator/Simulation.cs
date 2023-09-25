@@ -47,8 +47,6 @@ namespace CreatureSimulator.Simulator
             //Movement Loop
             while (true)
             {
-
-
                 for (int i = 0; i < generationLength; i++)
                 {
                     _window.ClearPanel();
@@ -64,5 +62,18 @@ namespace CreatureSimulator.Simulator
 
             }
         }
+
+        #region Survival Criteria Function
+        public void CheckSurvival(Creature creature)
+        {
+            int creatureX = creature.creatureXLocation;
+            int creatureY = creature.creatureYLocation;
+
+            if(!_window.IsPointSafe(creatureX, creatureY))
+            {
+                _creatures.Remove(creature);
+            }
+        }
+        #endregion
     }
 }
