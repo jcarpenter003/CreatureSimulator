@@ -70,17 +70,31 @@ namespace CreatureSimulator.Simulator
                     Thread.Sleep(GlobalConfig.SimCycleDelay); // This adjusts the speed of the simulation
                 }
 
-                RemoveDeadCreatures(deadCreatures);
+                HandleGenerationChange(deadCreatures);
             }
         }
 
-        #region Remove Dead Creatures From List Of Creatures
-        public void RemoveDeadCreatures(List<Creature> deadCreatures)
+        #region Remove Dead Creatures From List Of Creatures & And Reproduce New Creatures
+        public void HandleGenerationChange(List<Creature> deadCreatures)
         {
-            foreach(Creature creature in deadCreatures)
+            foreach (Creature creature in deadCreatures)
             {
                 _creatures.Remove(creature);
             }
+
+            List<Creature> newCreatures = new List<Creature>();
+
+            foreach (Creature creature in _creatures)
+            {
+                List<Creature> offSpring = creature.Reproduce();
+                foreach (Creature offs in offSpring)
+                {
+                    newCreatures.Add(offs);
+                }
+            }
+
+            _creatures.Clear();
+            _creatures = newCreatures;
         }
         #endregion
     }

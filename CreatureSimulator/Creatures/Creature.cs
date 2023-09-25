@@ -55,10 +55,28 @@ namespace CreatureSimulator.Creatures
             return this;
         }
 
-        #region Function to Execute Actions
+        #region Function To Execute Actions
         public void ExecuteActions()
         {
             actionHandler.ExecuteActions(NeuralNetwork.MapNeuronsToActions(), this);
+        }
+        #endregion
+
+        #region Function To Reproduce And Pass Network To New Creature(s)
+        public List<Creature> Reproduce()
+        {
+            var creatures = new List<Creature>();
+
+            Random rand = new Random();
+            int offSpring = rand.Next(1, 3);
+            
+            for (int i = 0; i <= offSpring; i++)
+            {
+                var creature = new Creature(this.NeuralNetwork).InitializeRandomCreature(this.NeuralNetwork);
+                creatures.Add(creature);
+            }
+
+            return creatures;
         }
         #endregion
     }

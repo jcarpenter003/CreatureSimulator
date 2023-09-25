@@ -25,7 +25,7 @@
         public static void FillRectangle(Graphics g, float x, float y, int height, int width)
         {
             Brush brush = new SolidBrush(Color.FromArgb(102, 41, 226, 100)); // 40% opacity green color
-            Rectangle rect = new Rectangle(0, 0, 200, 1000);
+            Rectangle rect = new Rectangle(800, 0, 200, 1000);
             g.FillRectangle(brush, rect);
         }
     }

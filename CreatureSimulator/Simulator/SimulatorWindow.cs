@@ -116,7 +116,7 @@ namespace CreatureSimulator.Simulator
 
         public bool IsPointSafe(int x, int y)
         {
-            Rectangle rect = new Rectangle(0, 0, 200, 1000);
+            Rectangle rect = new Rectangle(800, 0, 200, 1000);
             return !rect.Contains(x, y);
         }
 
