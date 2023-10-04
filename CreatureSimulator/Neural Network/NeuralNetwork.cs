@@ -100,7 +100,7 @@ namespace CreatureSimulator.Network
                 var neuron = new Neuron($"Output Neuron {i}", NeuronType.Output);
 
                 // Randomly assign an action to output layer neurons
-                int selectedAction = rand.Next(0, 3);
+                int selectedAction = rand.Next(0, 4);
                 neuron.Action = (CreatureAction)selectedAction;
 
                 OutputLayer.Add(neuron);
