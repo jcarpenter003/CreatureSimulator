@@ -5,10 +5,11 @@ namespace CreatureSimulator.Network
 {
     public class NeuralNetwork
     {
-        private List<Neuron> InputLayer = new List<Neuron>();
-        private List<Neuron> InternalLayer = new List<Neuron>();
-        private List<Neuron> OutputLayer = new List<Neuron>();
-        private ActionHandler ActionHandler = new ActionHandler();
+        public List<Neuron> InputLayer { get; set; } = new List<Neuron>();
+        public List<Neuron> InternalLayer { get; set; } = new List<Neuron>();
+        public List<Neuron> OutputLayer { get; set; } = new List<Neuron>();
+
+        private ActionHandler ActionHandler { get; set; } = new ActionHandler();
 
 
         public void FeedForward()
@@ -63,7 +64,7 @@ namespace CreatureSimulator.Network
 
         // Init Neural Network with randomly assigned connections
         // TODO RIGHT NOW THIS METHOD GENERATES RANDOM SENSOR VALUES AS WELL
-        public NeuralNetwork InitRandomNeuralNetwork(int inputNeurons, int internalNeurons, int outputNerons, int maxConnections) 
+        public NeuralNetwork InitRandomNeuralNetwork(int inputNeurons, int internalNeurons, int outputNerons, int maxConnections)
         {
             var rand = new Random();
 

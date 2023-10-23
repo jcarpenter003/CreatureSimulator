@@ -38,13 +38,13 @@ namespace CreatureSimulator.Creatures
             ExecuteMovementAction(creature, actionsToExecute);
         }
 
-        public void ExecuteMovementAction(List<Creature> creatures)
-        {
-            foreach (Creature creature in creatures)
-            {
-                //ExecuteMovementAction(creature);
-            }
-        }
+        //public void ExecuteMovementAction(List<Creature> creatures)
+        //{
+        //    foreach (Creature creature in creatures)
+        //    {
+        //        //ExecuteMovementAction(creature);
+        //    }
+        //}
 
         public void ExecuteMovementAction(Creature creature, Dictionary<CreatureAction, double> actions)
         {
