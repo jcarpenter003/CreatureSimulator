@@ -49,7 +49,7 @@ namespace CreatureSimulator.Creatures
                 this.Gender = false;
             }
 
-            this.creatureXLocation = rand.Next(1, 1000);
+            this.creatureXLocation = rand.Next(1, 1000);    
             this.creatureYLocation = rand.Next(1, 1000);
 
             return this;
